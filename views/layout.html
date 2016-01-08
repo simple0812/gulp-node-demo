@@ -2,11 +2,14 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>hehle</title>
+    <%-blocks.title%>
     <link href="/css/bootstrap.css" rel="stylesheet" />
     <link href="/css/style.css" rel="stylesheet" />
     <link href="/css/pager.css" rel="stylesheet" />
     <script src='/js/main.js'></script>
+    <%-scripts%>
+    <%-stylesheets%>
+    <%-blocks.scriptx%>
 </head>
 
 <body>
@@ -28,7 +31,7 @@
         <%-body -%>
     </div>
     <script>
-    require(['../lib/jquery'], function() {
+    require(['/js/lib/jquery.js'], function() {
         function navToDetail() {
             var uf = $('#userField');
             if (uf.length > 0) {

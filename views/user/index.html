@@ -1,4 +1,6 @@
-<script type="text/javascript" src="/js/lib/require.js" data-main='/js/user/app.js'></script>
+<% layout('../layout') -%>
+<% block('title', "<title>用户列表</title>") -%>
+<% block('scriptx', "<script src='/js/lib/require.js' data-main='/js/user/app.js'></script>") -%>
 <div class="modal fade  ng-scope" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="createUserModalLabel" aria-hidden="true" style="margin-top: 120px;" modal-dialog>
     <div class="modal-dialog" style="margin-top: 80px;">
         <div class="modal-content">
