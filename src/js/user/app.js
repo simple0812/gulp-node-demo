@@ -1,5 +1,4 @@
 if(typeof main !=='undefined' && main.init) {
-	console.log('---')
 	main.init('user')
 }
 

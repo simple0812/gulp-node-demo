@@ -99,8 +99,7 @@ function ug(dir) {
     var appDst = 'public/js/' + dir;
 
     gulp.src(appSrc)
-        // .pipe(uglify({compress:true}))
-        // .pipe(concat('app.js'))
+        .pipe(uglify({compress:true}))
         .pipe(gulp.dest(appDst))
         .pipe(livereload());
 }
@@ -112,8 +111,8 @@ function adapter(moduleName) {
             name: moduleName + '/app',
             baseUrl: 'src/js', //相对于appDir
             out: 'app.js',
-            optimize: "uglify",
-            excludeShallow: ['bootstrap', 'jquery'], //将公共的库排除
+            // optimize: "uglify",
+            // excludeShallow: ['bootstrap', 'jquery'], //将公共的库排除
             paths: {
                 'angular': 'lib/angular',
                 'bootstrap': 'lib/bootstrap',
@@ -173,9 +172,9 @@ function adapter(moduleName) {
                 }
             }
         })
-        .pipe(uglify({
-            compress: true
-        }))
+        // .pipe(uglify({
+        //     compress: true
+        // }))
         .pipe(gulp.dest('public/js/' + moduleName))
         .pipe(livereload());
 }
