@@ -78,8 +78,7 @@ define([
 
         function update() {
             svc.update($scope.model).done(function() {
-                var scope = $('#user').scope();
-                var model = _.find(scope.models, function(item) { return item.id === $scope.model.id; });
+                var model = _.find($scope.models, function(item) { return item.id === $scope.model.id; });
 
                 for (var each in $scope.model)
                     if ($scope.model.hasOwnProperty(each)) model[each] = $scope.model[each];

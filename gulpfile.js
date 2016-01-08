@@ -112,7 +112,7 @@ function adapter(moduleName) {
             baseUrl: 'src/js', //相对于appDir
             out: 'app.js',
             // optimize: "uglify",
-            // excludeShallow: ['bootstrap', 'jquery'], //将公共的库排除
+            excludeShallow: ['bootstrap', 'jquery'], //将公共的库排除
             paths: {
                 'angular': 'lib/angular',
                 'bootstrap': 'lib/bootstrap',
