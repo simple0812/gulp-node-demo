@@ -49,7 +49,6 @@ define([
         $scope.$on('preSave', function(evt, args) {
             args = args || {};
             $scope.model = adapter(args.model);
-            console.log($scope.model, '...')
             $scope.saveType = args.saveType;
         });
 
@@ -64,7 +63,6 @@ define([
         };
 
         $scope.search = function () {
-            console.log($scope.pageCondition)
             $scope.pageCondition.pageIndex = 1;
             $scope.$broadcast('page');
         };
@@ -94,7 +92,6 @@ define([
 
         function adapter(obj) {
             obj = obj || {};
-            console.log(obj, '..')
             return {
                 id: obj.id || 0,
                 title: obj.title || '',

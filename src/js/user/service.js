@@ -1,6 +1,7 @@
 define([
+    'jquery',
     'angular'
-], function() {
+], function($) {
     var moduleSvc = angular.module('moduleSvc', []);
     var apiUrl = '/user';
 

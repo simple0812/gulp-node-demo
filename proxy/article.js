@@ -35,8 +35,6 @@ exports.retrieve = function(opts) {
 };
 
 
-
-
 exports.getById = function(id) {
     return models.Article.all({
         where: {

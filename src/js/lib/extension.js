@@ -140,22 +140,5 @@ function extend(subClass, superClass) {
         superClass.prototype.constructor = superClass;
 }
 
-(function($) {
-
-    var o = $({});
-
-    $.subscribe = function() {
-        o.on.apply(o, arguments);
-    };
-
-    $.unSubscribe = function() {
-        o.off.apply(o, arguments);
-    };
-
-    $.publish = function() {
-        o.trigger.apply(o, arguments);
-    };
-
-}($));
 
 

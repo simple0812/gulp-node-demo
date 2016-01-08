@@ -1,4 +1,4 @@
- var validator = (function($) {
+ var validator = (function() {
      return {
          className: 'validator',
          compareMode: {
@@ -161,7 +161,7 @@
          }
      };
 
- })($);
+ })();
 
  if (typeof define === "function" && define.amd) {
      define(['common'], function() {

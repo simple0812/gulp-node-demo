@@ -1,11 +1,12 @@
 define([
+    'jquery',
     'angular',
     'extension',
     'underscore',
-    'pager'
-], function() {
+    'common'
+], function($) {
     var moduleListCtrl = angular.module('moduleCtrl', []);
-    moduleListCtrl.controller('controller', ['$scope', '$window', 'svc', controller]);
+    moduleListCtrl.controller('controller', ['$scope', '$window', 'svc', controller]); 
 
     function controller($scope, $window, svc) {
         $scope.models = [];
@@ -62,7 +63,6 @@ define([
         };
 
         $scope.search = function () {
-            console.log($scope.pageCondition)
             $scope.pageCondition.pageIndex = 1;
             $scope.$broadcast('page');
         };

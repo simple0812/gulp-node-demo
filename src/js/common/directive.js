@@ -17,13 +17,38 @@
 
 define([
 	'angular',
-	'common',
-	'datetimepicker',
-	'jquery.fileupload'
+	'pager',
+	'bootstrap',
+	'underscore',
+	'jquery'
 ], function() {
 	var commonDirect = angular.module('commonDirect', []);
 
-	commonDirect.directive('datetimepicker',
+	// commonDirect.directive('datetimepicker',
+	// 	function() {
+	// 		return {
+	// 			priority: 0,
+	// 			template: '',
+	// 			replace: false,
+	// 			transclude: false,
+	// 			restrict: 'A',
+	// 			scope: false,
+	// 			link: function postLink(scope, iElement, iAttrs, ctrl) {
+	// 				$(iElement).val('').datetimepicker({
+	// 					format: 'yyyy-mm',
+	// 					autoclose: true,
+	// 					language: 'zh-CN',
+	// 					startView: 'year',
+	// 					minView: 'year',
+	// 					minuteStep: 1,
+	// 					endDate: new Date()
+	// 				});
+	// 			}
+	// 		};
+	// 	});
+
+	// modal-dialog
+	commonDirect.directive('modalDialog',
 		function() {
 			return {
 				priority: 0,
@@ -31,16 +56,18 @@ define([
 				replace: false,
 				transclude: false,
 				restrict: 'A',
-				scope: false,
+				scope: {},
+				controller: ['$scope', '$element', '$attrs', function($scope, $element, $attrs) {
+					$scope.$on('postSave', function() {
+						setTimeout(function() {
+							$($element).modal('hide');
+						});
+					});
+				}],
 				link: function postLink(scope, iElement, iAttrs, ctrl) {
-					$(iElement).val('').datetimepicker({
-						format: 'yyyy-mm',
-						autoclose: true,
-						language: 'zh-CN',
-						startView: 'year',
-						minView: 'year',
-						minuteStep: 1,
-						endDate: new Date()
+					$(iElement).on('hidden.bs.modal', function(e) {
+						scope.$parent.model = {};
+						scope.$apply();
 					});
 				}
 			};
@@ -56,12 +83,10 @@ define([
 			scope: {
 				targetEle:'@'
 			},
-			controller: function($scope, $element, $attrs) {
-				$scope.pager = new Pager($scope.$parent.pageCondition.pageSize, 0, 1, $scope.$parent.pageCondition, $scope.pageList, -1);
+			controller:['$scope', '$element', '$attrs', function($scope, $element, $attrs) {
 
 				$scope.pageList = function() {
 					$scope.pager.moveIndicator(arguments[0]);
-					console.log($scope.pager.condition)
 					svc.page($scope.pager.condition)
 						.done(function(json) {
 							$scope.$parent.models = json.result || [];
@@ -81,8 +106,9 @@ define([
 						});
 					});
 				});
-			},
 
+				$scope.pager = new Pager($scope.$parent.pageCondition.pageSize, 0, 1, $scope.$parent.pageCondition, $scope.pageList, -1);
+			}],
 			link: function postLink($scope, iElement, iAttrs, ctrl) {
 				$scope.pager.renderNumberStyleHtml($(iElement).get(0));
 				$scope.pageList({
@@ -104,7 +130,7 @@ define([
 				scope: {
 					chkType: '@' //全选框：chk-type='all'
 				},
-				controller: function($scope, $element, $attrs) {
+				controller:['$scope', '$element', '$attrs', function($scope, $element, $attrs) {
 					$scope.$parent.selectItems = $scope.$parent.selectItems || [];
 
 					$scope.$on('chkAll', function(evt, args) {
@@ -131,8 +157,7 @@ define([
 
 						$(':checkbox[chk-type="all"]').prop('checked', $scope.$parent.selectItems.length === $scope.$parent.models.length)
 					});
-				},
-
+				}],
 				link: function postLink(scope, iElement, iAttrs, ctrl) {
 					var chkType = scope.chkType || '';
 
@@ -151,63 +176,39 @@ define([
 			};
 		});
 
-	commonDirect.directive('fileupload',
-		function() {
-			return {
-				priority: 0,
-				template: '',
-				replace: false,
-				transclude: false,
-				restrict: 'A',
-				scope: false,
-				link: function postLink(scope, iElement, iAttrs, ctrl) {
-					var url = '/api/user/portrait';
-					$(iElement).fileupload({
-						url: url,
-						dataType: 'json',
-						add: function(e, data) {
-							data.submit();
-						},
-						done: function(e, data) {
-							if (!data.result) return console.log('未知的错误');
-							if (data.result.state === 'fail') return console.log('fail');
+	// commonDirect.directive('fileupload',
+	// 	function() {
+	// 		return {
+	// 			priority: 0,
+	// 			template: '',
+	// 			replace: false,
+	// 			transclude: false,
+	// 			restrict: 'A',
+	// 			scope: false,
+	// 			link: function postLink(scope, iElement, iAttrs, ctrl) {
+	// 				var url = '/api/user/portrait';
+	// 				$(iElement).fileupload({
+	// 					url: url,
+	// 					dataType: 'json',
+	// 					add: function(e, data) {
+	// 						data.submit();
+	// 					},
+	// 					done: function(e, data) {
+	// 						if (!data.result) return console.log('未知的错误');
+	// 						if (data.result.state === 'fail') return console.log('fail');
 
-							console.log(data.result.result, scope);
-							scope.$apply(function() {
-								scope.model.portrait = data.result.result;
-							});
-						},
-						progressall: function(e, data) {}
-					}).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
-				}
-			};
-		});
+	// 						console.log(data.result.result, scope);
+	// 						scope.$apply(function() {
+	// 							scope.model.portrait = data.result.result;
+	// 						});
+	// 					},
+	// 					progressall: function(e, data) {}
+	// 				}).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
+	// 			}
+	// 		};
+	// 	});
 
-	//modal-dialog
-	commonDirect.directive('modalDialog',
-		function() {
-			return {
-				priority: 0,
-				template: '',
-				replace: false,
-				transclude: false,
-				restrict: 'A',
-				scope: {},
-				controller: function($scope, $element, $attrs) {
-					$scope.$on('postSave', function() {
-						setTimeout(function() {
-							$($element).modal('hide');
-						});
-					});
-				},
-				link: function postLink(scope, iElement, iAttrs, ctrl) {
-					$(iElement).on('hidden.bs.modal', function(e) {
-						scope.$parent.model = {};
-						scope.$apply();
-					});
-				}
-			};
-		});
+	
 
 	commonDirect.directive('showModal',
 		function() {
@@ -221,9 +222,9 @@ define([
 					saveType: '@',
 					targetModal: '@'
 				},
-				controller: function($scope, $element, $attrs) {
+				controller:['$scope', '$element', '$attrs', function($scope, $element, $attrs) {
 					//console.log('showmodal ->',$scope)
-				},
+				}],
 				link: function postLink(scope, iElement, iAttrs, ctrl) {
 					$(iElement).on('click', function() {
 						scope.$apply(function() {

@@ -1,5 +1,5 @@
 
-var common = (function($) {
+var common = (function() {
     /* bootstrap popover */
     function popBy(obj, message, direct) {
         $(obj).popover('destroy');
@@ -227,7 +227,7 @@ var common = (function($) {
         insertText: insertText,
         moveCursor: moveCursor
     }
-})($);
+})();
 
 
 
