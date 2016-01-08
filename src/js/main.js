@@ -6,15 +6,12 @@ var main = {
                 'angular': 'lib/angular',
                 'bootstrap': 'lib/bootstrap',
                 'underscore': 'lib/underscore',
-                'extension': 'lib/extension',
                 'common': 'lib/common',
                 'moment': 'lib/moment',
                 'validator': 'lib/validator',
                 'pager': 'lib/pager',
                 'jquery': 'lib/jquery',
                 'hashChange': 'lib/hashChange',
-                'jquery.ui.widget': 'lib/jquery.ui.widget',
-                'jquery.fileupload': 'lib/jquery.fileupload',
                 'md5': 'md5',
                 'commonDirect': 'common/directive',
                 'commonFilter': 'common/filter',
@@ -48,16 +45,11 @@ var main = {
                     deps: ['jquery', 'common']
                 },
                 'bootstrap': ['jquery'],
-                'extension': {
-                    exports: 'extension',
-                    deps: ['jquery']
-                },
                 'commonDirect': {
                     exports: 'commonDirect',
                     deps: [
                         'angular',
-                        'common',
-                        'jquery.fileupload'
+                        'common'
                     ]
                 },
                 'commonFilter': {
@@ -66,10 +58,6 @@ var main = {
                         'angular',
                         'moment'
                     ]
-                },
-                'jquery.fileupload': {
-                    exports: 'jquery.fileupload',
-                    deps: ['jquery', 'jquery.ui.widget']
                 }
             }
         });

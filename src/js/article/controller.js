@@ -1,6 +1,6 @@
 define([
     'angular',
-    'extension',
+    'common',
     'underscore',
     'pager'
 ], function() {

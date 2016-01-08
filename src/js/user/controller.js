@@ -1,7 +1,6 @@
 define([
     'jquery',
     'angular',
-    'extension',
     'underscore',
     'common'
 ], function($) {

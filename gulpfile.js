@@ -113,20 +113,17 @@ function adapter(moduleName) {
             baseUrl: 'src/js', //相对于appDir
             out: 'app.js',
             optimize: "uglify",
-            // excludeShallow: ['bootstrap', 'jquery'], //将公共的库排除
+            excludeShallow: ['bootstrap', 'jquery'], //将公共的库排除
             paths: {
                 'angular': 'lib/angular',
                 'bootstrap': 'lib/bootstrap',
                 'underscore': 'lib/underscore',
-                'extension': 'lib/extension',
                 'common': 'lib/common',
                 'moment': 'lib/moment',
                 'validator': 'lib/validator',
                 'pager': 'lib/pager',
                 'jquery' : 'lib/jquery',
                 'hashChange': 'lib/hashChange',
-                'jquery.ui.widget': 'lib/jquery.ui.widget',
-                'jquery.fileupload': 'lib/jquery.fileupload',
                 'md5': 'md5',
                 'commonDirect': 'common/directive',
                 'commonFilter': 'common/filter',
@@ -142,11 +139,11 @@ function adapter(moduleName) {
                 },
                 'common': {
                     exports: 'common',
-                    deps: ['', 'bootstrap']
+                    deps: ['jquery', 'bootstrap']
                 },
                 'hashChange': {
                     exports: 'hashChange',
-                    deps: ['']
+                    deps: ['jquery']
                 },
                 'pager': {
                     exports: 'pager',
@@ -157,19 +154,14 @@ function adapter(moduleName) {
                 },
                 'validator': {
                     exports: 'validator',
-                    deps: ['', 'common']
+                    deps: ['jquery', 'common']
                 },
-                'bootstrap': [''],
-                'extension': {
-                    exports: 'extension',
-                    deps: ['']
-                },
+                'bootstrap': ['jquery'],
                 'commonDirect': {
                     exports: 'commonDirect',
                     deps: [
                         'angular',
-                        'common',
-                        'jquery.fileupload'
+                        'common'
                     ]
                 },
                 'commonFilter': {
@@ -178,10 +170,6 @@ function adapter(moduleName) {
                         'angular',
                         'moment'
                     ]
-                },
-                'jquery.fileupload': {
-                    exports: 'jquery.fileupload',
-                    deps: ['', 'jquery.ui.widget']
                 }
             }
         })
