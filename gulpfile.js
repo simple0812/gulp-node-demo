@@ -12,7 +12,6 @@ var jshint = require('gulp-jshint'); //js检查
 var uglify = require('gulp-uglify'); //js压缩
 var rename = require('gulp-rename'); //重命名
 var concat = require('gulp-concat'); //合并文件
-var clean = require('gulp-clean'); //清空文件夹
 var nodemon = require('gulp-nodemon'); //监控文件修改，重启node服务
 var livereload = require('gulp-livereload'); // 浏览器同步
 var rimraf = require('rimraf'); //删除文件夹里面的文件
