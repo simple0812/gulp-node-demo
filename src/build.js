@@ -1,5 +1,7 @@
 {
     baseUrl: './js',
+    findNestedDependencies: true, //寻找require()里面的require或define调用的依赖
+    removeCombined: true, //在输出目录将会删除掉已经合并了的文件
     paths: {
         'angular': 'lib/angular',
         'bootstrap': 'lib/bootstrap',
@@ -17,31 +19,30 @@
         'datetimepicker': 'lib/bootstrap-datetimepicker',
         'md5': 'md5',
         'commonDirect': 'common/directive',
-        'commonFilter': 'common/filter',
-        // 'user': 'user/app',
-        // 'userService': 'user/service',
-        // 'userController': 'user/controller',
-        // 'article': 'article/app',
-        // 'articleService': 'article/service',
-        // 'articleController': 'article/controller',
+        'commonFilter': 'common/filter'
 
     },
     dir: '../static',
     modules: [{
         name: 'user/app',
-        include : [
-            'user/service',
-            'user/controller',
+        // excludeShallow: ['bootstrap', 'jquery', 'angular'], //将公共的库排除,不包括其依赖的项
+        include: [
+        ],
+        //将公共的库排除,包括其依赖的项
+        exclude: [
+            'angular',
+            'bootstrap',
+            'jquery'
         ]
-        // exclude:[
-        //     'angular',
-        //     'bootstrap',
-        //     'underscore',
-        //     'jquery',
-        //     'moment'
-        // ]
     }, {
-        name: 'article/app'
+        name: 'article/app',
+        // excludeShallow: ['bootstrap', 'jquery', 'angular'], //将公共的库排除
+        include: [],
+        exclude: [
+            'angular',
+            'bootstrap',
+            'jquery'
+        ]
     }],
     shim: {
         'angular': {

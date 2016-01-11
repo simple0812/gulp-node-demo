@@ -70,7 +70,7 @@ gulp.task('images', function() {
 // js处理
 gulp.task('js', function() {
 
-    var rjsSrc = ['src/js/lib/require.js', 'src/js/lib/jquery.js', 'src/js/lib/bootstrap.js'];
+    var rjsSrc = ['src/js/lib/require.js', 'src/js/lib/jquery.js', 'src/js/lib/bootstrap.js', 'src/js/lib/angular.js', 'src/js/lib/moment.js', 'src/js/lib/underscore.js'];
     var rjsDst = 'public/js/lib';
     var mainSrc = ['src/js/main.js'];
     var mainDst = 'public/js';
@@ -103,15 +103,14 @@ function ug(dir) {
         .pipe(livereload());
 }
 
-// var rjsConf = require('./rjsConf');
-
 function adapter(moduleName) {
      rjs({
             name: moduleName + '/app',
             baseUrl: 'src/js', //相对于appDir
             out: 'app.js',
             // optimize: "uglify",
-            excludeShallow: ['bootstrap', 'jquery'], //将公共的库排除
+            exclude: ['bootstrap', 'jquery', 'angular', 'moment', 'underscore'], //将公共的库排除,包括其依赖的项
+            // excludeShallow: ['bootstrap', 'jquery'], //将公共的库排除,不包括其依赖的项
             findNestedDependencies:true,//支持require函数内嵌套require函数的打包
             paths: {
                 'angular': 'lib/angular',
@@ -126,8 +125,8 @@ function adapter(moduleName) {
                 'md5': 'md5',
                 'commonDirect': 'common/directive',
                 'commonFilter': 'common/filter',
-                'service': moduleName + '/service',
-                'controller': moduleName + '/controller'
+                // 'service': moduleName + '/service',
+                // 'controller': moduleName + '/controller'
             },
             shim: {
                 'angular': {
@@ -201,7 +200,7 @@ gulp.task('serve', function(cb) {
     nodemon({
         script: 'app.js',
         ext: 'html js',
-        watch: ['controllers/*', 'models/*', 'proxy/*', 'views/*', 'utils/*']
+        watch: ['controllers/*', 'models/*', 'proxy/*', 'views/*', 'utils/*', 'app.js']
     }).on('start', function() {
         setTimeout(function() {
             livereload.reload();

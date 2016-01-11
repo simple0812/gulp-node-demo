@@ -4,16 +4,12 @@
 // }
 
 require.config({
-	baseUrl: '/js',
-	paths: {
-		'service': 'article/service',
-		'controller': 'article/controller'
-	}
+	baseUrl: '/js'
 });
 
 
 require(['main'], function() {
-	require(['jquery', 'validator', 'bootstrap', 'service', 'controller', 'commonFilter', 'commonDirect'], function() {
+	require(['jquery', 'validator', 'bootstrap', 'article/service', 'article/controller', 'commonFilter', 'commonDirect'], function() {
 		validator.bind();
 		angular.module('myApp', ['moduleCtrl', 'moduleSvc', 'commonFilter', 'commonDirect']);
 		angular.element(document).ready(function() {
