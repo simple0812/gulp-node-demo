@@ -1,4 +1,133 @@
 
+define('main',[], function() {
+    require.config({
+            baseUrl: '/js',
+            paths: {
+                'angular': 'lib/angular',
+                'bootstrap': 'lib/bootstrap',
+                'underscore': 'lib/underscore',
+                'common': 'lib/common',
+                'moment': 'lib/moment',
+                'validator': 'lib/validator',
+                'pager': 'lib/pager',
+                'jquery': 'lib/jquery',
+                'hashChange': 'lib/hashChange',
+                'md5': 'md5',
+                'commonDirect': 'common/directive',
+                'commonFilter': 'common/filter',
+                // 'service': name + '/service',
+                // 'controller': name + '/controller'
+            },
+            shim: {
+                'angular': {
+                    exports: 'angular'
+                },
+                'underscore': {
+                    exports: '_'
+                },
+                'common': {
+                    exports: 'common',
+                    deps: ['jquery', 'bootstrap']
+                },
+                'hashChange': {
+                    exports: 'hashChange',
+                    deps: ['jquery']
+                },
+                'pager': {
+                    exports: 'pager',
+                    deps: ['hashChange']
+                },
+                'moment': {
+                    exports: 'moment'
+                },
+                'validator': {
+                    exports: 'validator',
+                    deps: ['jquery', 'common']
+                },
+                'bootstrap': ['jquery'],
+                'commonDirect': {
+                    exports: 'commonDirect',
+                    deps: [
+                        'angular',
+                        'common'
+                    ]
+                },
+                'commonFilter': {
+                    exports: 'commonFilter',
+                    deps: [
+                        'angular',
+                        'moment'
+                    ]
+                }
+            }
+        });
+})
+
+// var main = {
+//     init: function(name) {
+//         require.config({
+//             baseUrl: '/js',
+//             paths: {
+//                 'angular': 'lib/angular',
+//                 'bootstrap': 'lib/bootstrap',
+//                 'underscore': 'lib/underscore',
+//                 'common': 'lib/common',
+//                 'moment': 'lib/moment',
+//                 'validator': 'lib/validator',
+//                 'pager': 'lib/pager',
+//                 'jquery': 'lib/jquery',
+//                 'hashChange': 'lib/hashChange',
+//                 'md5': 'md5',
+//                 'commonDirect': 'common/directive',
+//                 'commonFilter': 'common/filter',
+//                 'service': name + '/service',
+//                 'controller': name + '/controller'
+//             },
+//             shim: {
+//                 'angular': {
+//                     exports: 'angular'
+//                 },
+//                 'underscore': {
+//                     exports: '_'
+//                 },
+//                 'common': {
+//                     exports: 'common',
+//                     deps: ['jquery', 'bootstrap']
+//                 },
+//                 'hashChange': {
+//                     exports: 'hashChange',
+//                     deps: ['jquery']
+//                 },
+//                 'pager': {
+//                     exports: 'pager',
+//                     deps: ['hashChange']
+//                 },
+//                 'moment': {
+//                     exports: 'moment'
+//                 },
+//                 'validator': {
+//                     exports: 'validator',
+//                     deps: ['jquery', 'common']
+//                 },
+//                 'bootstrap': ['jquery'],
+//                 'commonDirect': {
+//                     exports: 'commonDirect',
+//                     deps: [
+//                         'angular',
+//                         'common'
+//                     ]
+//                 },
+//                 'commonFilter': {
+//                     exports: 'commonFilter',
+//                     deps: [
+//                         'angular',
+//                         'moment'
+//                     ]
+//                 }
+//             }
+//         });
+//     }
+// };
 
 var common = (function() {
     /* bootstrap popover */
@@ -26506,16 +26635,27 @@ define('commonDirect',[
 			};
 		});
 });
-if(typeof main !=='undefined' && main.init) {
-	console.log('---')
-	main.init('user')
-}
+// if(typeof main !=='undefined' && main.init) {
+// 	console.log('---')
+// 	main.init('article')
+// }
 
-require(['jquery', 'validator', 'bootstrap', 'service', 'controller', 'commonFilter', 'commonDirect'], function() {
-    validator.bind();
-    angular.module('myApp', ['moduleCtrl', 'moduleSvc', 'commonFilter', 'commonDirect']);
-    angular.element(document).ready(function() {
-        angular.bootstrap(document, ['myApp']);
-    });
+require.config({
+	baseUrl: '/js',
+	paths: {
+		'service': 'article/service',
+		'controller': 'article/controller'
+	}
+});
+
+
+require(['main'], function() {
+	require(['jquery', 'validator', 'bootstrap', 'service', 'controller', 'commonFilter', 'commonDirect'], function() {
+		validator.bind();
+		angular.module('myApp', ['moduleCtrl', 'moduleSvc', 'commonFilter', 'commonDirect']);
+		angular.element(document).ready(function() {
+			angular.bootstrap(document, ['myApp']);
+		});
+	});
 });
 define("article/app", function(){});

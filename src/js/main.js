@@ -1,6 +1,5 @@
-var main = {
-    init: function(name) {
-        require.config({
+define([], function() {
+    require.config({
             baseUrl: '/js',
             paths: {
                 'angular': 'lib/angular',
@@ -15,8 +14,6 @@ var main = {
                 'md5': 'md5',
                 'commonDirect': 'common/directive',
                 'commonFilter': 'common/filter',
-                'service': name + '/service',
-                'controller': name + '/controller'
             },
             shim: {
                 'angular': {
@@ -61,5 +58,4 @@ var main = {
                 }
             }
         });
-    }
-}
+})

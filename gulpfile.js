@@ -112,6 +112,7 @@ function adapter(moduleName) {
             out: 'app.js',
             // optimize: "uglify",
             excludeShallow: ['bootstrap', 'jquery'], //将公共的库排除
+            findNestedDependencies:true,//支持require函数内嵌套require函数的打包
             paths: {
                 'angular': 'lib/angular',
                 'bootstrap': 'lib/bootstrap',
