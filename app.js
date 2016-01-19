@@ -1,5 +1,7 @@
 express = require('express');
 app = express();
+var http = require('http');
+
 var bodyParser = require('body-parser');
 var ejs = require('ejs');
 var engine = require('ejs-locals');
@@ -30,10 +32,10 @@ app.use(logger.log4js.connectLogger(logger.access, {
 
 require("./routers/")(app);
 
-app.use(function (req, res, next) {
-    var err = new Error('Not Found' + req.originalUrl);
-    err.status = 404;
-    next(err);
+app.use(function(req, res, next) {
+	var err = new Error('Not Found' + req.originalUrl);
+	err.status = 404;
+	next(err);
 });
 
 if (env == 'development') {
@@ -44,6 +46,35 @@ if (env == 'development') {
 	});
 }
 
-app.listen(config.PORT, function() {
-	console.log("listening on port " + config.PORT + ', env ' + env);
-});
+var server = http.createServer(app);
+
+server.listen(config.PORT);
+server.on('error', onError);
+server.on('listening', onListening);
+
+function onError(error) {
+	if (error.syscall !== 'listen') {
+		throw error;
+	}
+
+	var bind = '端口 ' + config.PORT;
+
+	switch (error.code) {
+		case 'EACCES':
+			console.error(bind + ' 需要提升权限');
+			process.exit(1);
+			break;
+		case 'EADDRINUSE':
+			console.error(bind + ' 正在被其他程序使用');
+			process.exit(1);
+			break;
+		default:
+			throw error;
+	}
+}
+
+function onListening() {
+	var addr = server.address();
+	var bind = typeof addr === 'string' ? '管道 ' + addr : '端口 ' + addr.port;
+	console.log('正在监听 ' + bind);
+}
