@@ -19,3 +19,23 @@
 * 前者不需要安装插件，后期需要安装浏览器插件或者桌面插件
 * browser-sync 需要页面有body元素
 * 总结后者更灵活，可以配合express等开发程序。前者更方便，如果只是单纯的静态页面(不需要后台渲染)开发可以优先使用
+
+
+##常用模块
+var gulp = require('gulp'); //基础库
+var imagemin = require('gulp-imagemin'); //图片压缩
+var sass = require('gulp-sass'); //sass
+var minifycss = require('gulp-minify-css'); //css压缩
+var jshint = require('gulp-jshint'); //js检查
+var uglify = require('gulp-uglify'); //js压缩
+var rename = require('gulp-rename'); //重命名
+var concat = require('gulp-concat'); //合并文件
+var nodemon = require('gulp-nodemon'); //监控文件修改，重启node服务
+var livereload = require('gulp-livereload'); // 浏览器同步
+var rimraf = require('rimraf'); //删除文件夹里面的文件
+var rjs = require('gulp-requirejs');//压缩requirejs
+gulp-react     //react
+gulp-babel    //react
+gulp-sourcemap  //调试源代码
+browser-sync    //浏览器同步
+
